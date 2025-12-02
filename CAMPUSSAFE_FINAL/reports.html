@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reports</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Safety Reports</h2>
+
+<button onclick="showForm()">+ Add Report</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Type</th><th>Description</th><th>Edit</th><th>Delete</th>
+    </tr>
+  </thead>
+  <tbody id="reportTable"></tbody>
+</table>
+
+<div id="formBox" class="modal">
+  <h3>Add / Edit Report</h3>
+  <input id="type" placeholder="Type (ex: Flood, Hazard)">
+  <input id="desc" placeholder="Description">
+  <button onclick="saveReport()">Save</button>
+</div>
+
+<script src="reports.js"></script>
+</body>
+</html>

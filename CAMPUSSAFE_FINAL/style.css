@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.box, .weather-card {
+  padding: 15px;
+  background: #f0f0f0;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.login-box {
+  width: 300px;
+  margin: auto;
+  margin-top: 100px;
+  text-align: center;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px;
+  width: 80%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
