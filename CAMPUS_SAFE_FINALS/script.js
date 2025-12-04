@@ -103,3 +103,84 @@ class User {
   validatePassword(p){ return this._password === p; }
   toJSON(){ return {user: this._username, pass: this._password, createdAt: this._createdAt}; }
 }
+
+/* ====================
+  App State & Initialization
+  ==================== */
+const reportManager = new ReportManager();
+let currentUser = JSON.parse(localStorage.getItem('campus_current_user') || 'null');
+
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  const topbar = document.getElementById('topbar');
+  if(id === 'loginPage' || id === 'registerPage'){
+    topbar.classList.add('hidden');
+  } else {
+    topbar.classList.remove('hidden');
+  }
+
+  if(id === 'dashboardPage') renderDashboard();
+  if(id === 'reportsPage') renderReportsTable();
+}
+
+/* ====================
+  AUTH (localStorage)
+  - register before login enforced
+  ==================== */
+const USERS_KEY = 'campus_users_v1';
+function loadUsers(){ return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+function saveUsers(users){ localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
+
+function registerUser(){
+  const user = document.getElementById('regUser').value.trim();
+  const pass = document.getElementById('regPass').value.trim();
+  if(!user || !pass) return alert('Please fill both fields.');
+
+  const users = loadUsers();
+  if(users.find(u => u.user === user)) return alert('User already exists. Please login.');
+
+  const u = new User(user, pass);
+  users.push(u.toJSON());
+  saveUsers(users);
+  alert('Account created. Please login.');
+  document.getElementById('regUser').value = '';
+  document.getElementById('regPass').value = '';
+  showSection('loginPage');
+}
+
+function login(){
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if(!user || !pass) return alert('Fill both fields.');
+
+  const users = loadUsers();
+  if(users.length === 0) return alert('No accounts exist. You must register first.');
+
+  const found = users.find(u => u.user === user);
+  if(!found) return alert('User not found. Please register first.');
+
+  if(found.pass !== pass) return alert('Incorrect password.');
+
+  currentUser = { user: found.user, loginAt: new Date().toISOString(), since: found.createdAt };
+  localStorage.setItem('campus_current_user', JSON.stringify(currentUser));
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  showSection('dashboardPage');
+}
+
+function logout(){
+  currentUser = null;
+  localStorage.removeItem('campus_current_user');
+  showSection('loginPage');
+}
+
+/* If the app boots and user is logged in, open dashboard */
+(function boot(){
+  if(currentUser){
+    showSection('dashboardPage');
+  } else {
+    showSection('loginPage');
+  }
+})();
