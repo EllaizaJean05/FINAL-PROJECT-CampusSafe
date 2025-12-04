@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CampusSafe - Final Project (NBSC)</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- ===== TOPBAR ===== -->
+  <header id="topbar" class="hidden">
+    <div class="brand">CampusSafe - NBSC</div>
+    <div class="controls">
+      <button id="darkToggle" title="Toggle dark mode">🌙</button>
+      <button onclick="showSection('dashboardPage')">Dashboard</button>
+      <button onclick="showSection('weatherPage')">Weather</button>
+      <button onclick="showSection('mapPage')">Map</button>
+      <button onclick="showSection('reportsPage')">Reports</button>
+      <button onclick="showSection('profilePage')">Profile</button>
+      <button onclick="showSection('aboutPage')">About</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- ===== LOGIN ===== -->
+  <section id="loginPage" class="section active">
+    <div class="card auth">
+      <h2>CampusSafe Login</h2>
+      <input id="loginUser" placeholder="Username or email" />
+      <input id="loginPass" type="password" placeholder="Password" />
+      <button id="loginBtn">Login</button>
+      <p class="muted">Don't have an account? <a href="#" onclick="showSection('registerPage')">Sign up</a></p>
+    </div>
+  </section>
+
+  <!-- ===== REGISTER ===== -->
+  <section id="registerPage" class="section">
+    <div class="card auth">
+      <h2>Create Account</h2>
+      <input id="regUser" placeholder="Username or email" />
+      <input id="regPass" type="password" placeholder="Password" />
+      <button id="regBtn">Register</button>
+      <p class="muted">Already registered? <a href="#" onclick="showSection('loginPage')">Login</a></p>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD ===== -->
+  <section id="dashboardPage" class="section">
+    <div class="card">
+      <h2>Dashboard</h2>
+
+      <div class="grid">
+        <div class="box">
+          <h3>Safety Alert</h3>
+          <p id="safetyAlert">No active alerts.</p>
+        </div>
+        <div class="box">
+          <h3>Weather Snapshot</h3>
+          <div id="miniWeather">No city searched yet.</div>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-card">
+          <h4>Reports by Type</h4>
+          <canvas id="reportsChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h4>Reports Timeline (last 10)</h4>
+          <canvas id="timelineChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card small">
+        <h4>Recent Reports</h4>
+        <ul id="recentReports" class="list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WEATHER ===== -->
+  <section id="weatherPage" class="section">
+    <div class="card">
+      <h2>Weather Information (OpenWeather)</h2>
+      <div class="row">
+        <input id="cityInput" placeholder="Enter city (e.g., Malaybalay)" />
+        <button id="searchWeatherBtn">Search</button>
+      </div>
+      <div id="weatherBox" class="weather-box">No data yet.</div>
+    </div>
+  </section>
+
+  <!-- ===== MAP ===== -->
+   
+  <section id="mapPage" class="section">
+    <div class="card">
+      <h2>Interactive Safety Map (Leaflet)</h2>
+      <div id="map"></div>
+      <p class="muted">Click on the map to create a report at that location (requires you to fill type/desc).</p>
+    </div>
+  </section>
+
+  <!-- ===== REPORTS ===== -->
+  <section id="reportsPage" class="section">
+    <div class="card">
+      <h2>Reports (CRUD)</h2>
+      <div class="row">
+        <input id="reportType" placeholder="Type (e.g., Flood, Fire, Theft)" />
+        <input id="reportDesc" placeholder="Short description" />
+        <button id="addReportBtn">Add Report</button>
+      </div>
+      <table id="reportsTable" class="table"></table>
+    </div>
+  </section>
+
+  <!-- ===== PROFILE ===== -->
+  <section id="profilePage" class="section">
+    <div class="card">
+      <h2>Profile</h2>
+      <p><strong>Logged in as:</strong> <span id="profileUser">-</span></p>
+      <p><strong>Member since:</strong> <span id="profileSince">-</span></p>
+      <button onclick="exportReports()">Export Reports (JSON)</button>
+      <button onclick="importSample()">Load Sample Data</button>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="aboutPage" class="section">
+    <div class="card">
+      <h2>About / Team</h2>
+      <p>CampusSafe - NBSC final project demonstrating OOP, Charts, Maps, Events, API handling, and CRUD using localStorage.</p>
+      <h3>Group Members</h3>
+      <ul>
+        <li>Member 1 — OOP Lead</li>
+        <li>Member 2 — Web Systems & Tech Lead</li>
+        <li>Member 3 — Event-Driven Lead</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- JS Files -->
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="map.js"></script>
+  <script src="profile.js"></script>
+  <script src="report.js"></script>
+  <script src="weather.js"></script>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
