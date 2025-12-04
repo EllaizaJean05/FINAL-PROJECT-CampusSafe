@@ -1,0 +1,208 @@
+:root {
+  --bg: #f7f7f7;
+  --card: #fff;
+  --text: #111;
+  --muted: #666;
+  --accent: #0b5bd7;
+}
+
+body.dark {
+  --bg: #0b1220;
+  --card: #071126;
+  --text: #e6eef8;
+  --muted: #9fb0d9;
+  --accent: #60a5fa;
+}
+
+* {
+  box-sizing: border-box
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--card);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  font-weight: 700
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+  align-items: center
+}
+
+.controls button {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  background: var(--accent);
+  color: white
+}
+
+.controls button[title] {
+  background: transparent;
+  color: var(--text)
+}
+
+.section {
+  display: none;
+  padding: 18px
+}
+
+.section.active {
+  display: block
+}
+
+.card {
+  max-width: 1000px;
+  margin: 18px auto;
+  padding: 16px;
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.04)
+}
+
+.auth {
+  max-width: 380px;
+  text-align: center
+}
+
+.auth input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd
+}
+
+input,
+button {
+  font-size: 15px
+}
+
+.row {
+  display: flex;
+  gap: 8px
+}
+
+.row input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd
+}
+
+.row button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 0;
+  background: var(--accent);
+  color: #fff
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px
+}
+
+.box {
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02)
+}
+
+.small {
+  max-width: 600px
+}
+
+.chart-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px
+}
+
+.chart-card {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02)
+}
+
+.list {
+  padding-left: 16px;
+  margin: 0
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06)
+}
+
+.table button {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 0;
+  cursor: pointer
+}
+
+.weather-box {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02)
+}
+
+.hidden {
+  display: none
+}
+
+/* small screens */
+@media(max-width:900px) {
+  .grid {
+    grid-template-columns: 1fr
+  }
+
+  .chart-row {
+    flex-direction: column
+  }
+
+  .row {
+    flex-direction: column
+  }
+
+  .controls {
+    flex-wrap: wrap
+  }
+}
