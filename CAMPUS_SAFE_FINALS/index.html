@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CampusSafe - Final Project (NBSC)</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-  <!-- Chart.js -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-  <!-- Topbar (hidden on login/register) -->
+
+  <!-- ===== TOPBAR ===== -->
   <header id="topbar" class="hidden">
     <div class="brand">CampusSafe - NBSC</div>
     <div class="controls">
@@ -56,6 +57,7 @@
   <section id="dashboardPage" class="section">
     <div class="card">
       <h2>Dashboard</h2>
+
       <div class="grid">
         <div class="box">
           <h3>Safety Alert</h3>
@@ -98,10 +100,11 @@
   </section>
 
   <!-- ===== MAP ===== -->
+   
   <section id="mapPage" class="section">
     <div class="card">
       <h2>Interactive Safety Map (Leaflet)</h2>
-      <div id="map" style="height:440px;"></div>
+      <div id="map"></div>
       <p class="muted">Click on the map to create a report at that location (requires you to fill type/desc).</p>
     </div>
   </section>
@@ -144,8 +147,15 @@
     </div>
   </section>
 
-  <!-- JS -->
-  <script src="script.js"></script>
+  <!-- JS Files -->
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="map.js"></script>
+  <script src="profile.js"></script>
+  <script src="report.js"></script>
+  <script src="weather.js"></script>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
 </html>
