@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CampusSafe — Login</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- <style>
+    * {
+      outline: 1px solid red;
+    }
+  </style> -->
+
+  <script defer src="assets/classes.js"></script>
+  <script defer src="assets/auth.js"></script>
+</head>
+
+<body class="page-auth">
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="logo">CS</div>
+        <h1>CampusSafe</h1>
+        <p class="muted">Weather & Safety Alerts for Students</p>
+      </div>
+
+
+      <form id="loginForm" class="form">
+        <label>
+          <span>Username</span>
+          <input type="text" id="username" required placeholder="e.g. student01">
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="password" required placeholder="password">
+        </label>
+
+        <button type="submit" class="btn primary full">Login</button>
+        <p class="muted small">Put your username and password — click Login to continue.</p>
+      </form>
+
+      <footer class="auth-foot">
+        <br>
+        <p>Project: <strong>CampusSafe</strong> — SDG 11</p>
+      </footer>
+    </div>
+
+
+  </main>
+</body>
+
+</html>

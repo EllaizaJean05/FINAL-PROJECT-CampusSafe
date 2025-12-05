@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CampusSafe — Dashboard</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="assets/classes.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/dashboard.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo-sm">CS</div>
+      <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="weather.html">Weather</a>
+        <a href="map.html">Map</a>
+        <a href="reports.html">Reports</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="bottom">
+        <button id="logoutBtn" class="btn link">Logout</button>
+      </div>
+    </aside>
+
+
+<main class="main-area">
+  <header class="topbar">
+    <div>
+      <h2>Hello, <span id="userLabel">Student</span>!</h2>
+      <p class="muted">CampusSafe — NBSC Dashboard</p>
+    </div>
+    <div class="clock" id="clock">--:--</div>
+  </header>
+
+  <section class="content grid-cols">
+    <div class="card large" id="chartCard">
+      <h3>Reports — last 7 days</h3>
+      <canvas id="reportsChart" height="120"></canvas>
+    </div>
+
+    <div class="card">
+      <h4>Summary</h4>
+      <div class="stat">
+        <div>
+          <div class="stat-value" id="totalReports">0</div>
+          <div class="muted">Total reports</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Latest Alerts</h4>
+      <ul id="alertsList" class="list-compact muted">No alerts</ul>
+    </div>
+
+  </section>
+</main>
+
+
+  </div>
+</body>
+</html>
