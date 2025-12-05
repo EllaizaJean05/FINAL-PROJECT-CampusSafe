@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusSafe – Login</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="page-auth">
+    <div class="auth-wrapper">
+        <div class="auth-card">
+
+            <div class="brand">
+                <div class="logo">CS</div>
+                <h2>CampusSafe</h2>
+                <p class="muted small">Secure Campus Monitoring</p>
+            </div>
+
+            <form id="loginForm" class="form">
+                <label>
+                    Username
+                    <input type="text" id="username" required />
+                </label>
+
+                <label class="mt">
+                    Password
+                    <input type="password" id="password" required />
+                </label>
+
+                <button class="btn primary full mt" type="submit">Log In</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        // Simple login simulation – no backend needed
+        document.getElementById("loginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === "" || password === "") {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            // Save username in localStorage
+            localStorage.setItem("campus_user", username);
+
+            // Redirect to dashboard
+            window.location.href = "dashboard.html";
+        });
+    </script>
+
+</body>
+</html>

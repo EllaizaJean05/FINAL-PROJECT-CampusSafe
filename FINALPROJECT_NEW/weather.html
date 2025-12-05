@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CampusSafe — Weather</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/classes.js"></script>
+  <script defer src="assets/auth.js"></script>
+  <script defer src="assets/weather.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo-sm">CS</div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="weather.html" class="active">Weather</a>
+        <a href="map.html">Map</a>
+        <a href="reports.html">Reports</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="bottom">
+        <button id="logoutBtn" class="btn link">Logout</button>
+      </div>
+    </aside>
+
+<main class="main-area">
+  <header class="topbar">
+    <h2>Weather</h2>
+    <div class="muted">Powered by OpenWeather</div>
+  </header>
+
+  <section class="content narrow">
+    <div class="card">
+      <form id="cityForm" class="form-inline">
+        <input type="text" id="cityInput" placeholder="Enter city (e.g., Malaybalay, Philippines)" />
+        <button class="btn" type="submit">Get Weather</button>
+        <button id="useNBSC" class="btn ghost" type="button">Use NBSC</button>
+      </form>
+
+      <div class="weather-result card mt">
+        <h3 id="wcity">—</h3>
+        <div class="weather-now">
+          <div>
+            <div id="wtemp" class="big">--°C</div>
+            <div id="wdesc" class="muted">—</div>
+          </div>
+          <div class="muted">
+            <div>Humidity: <span id="whumidity">--</span>%</div>
+            <div>Wind: <span id="wwind">--</span> m/s</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted small mt">Note: Insert your OpenWeather API key in <code>assets/weather.js</code>.</p>
+    </div>
+  </section>
+</main>
+
+
+  </div>
+</body>
+</html>
