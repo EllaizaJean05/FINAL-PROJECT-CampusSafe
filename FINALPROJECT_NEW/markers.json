@@ -1,0 +1,31 @@
+{
+  "markers": [
+    {
+      "id": "clinic",
+      "title": "Campus Clinic",
+      "description": "Provides medical assistance and first aid services for students and staff.",
+      "lat": 8.359169,
+      "lng": 124.868229,
+      "category": "Health",
+      "icon": "clinic.png"
+    },
+    {
+      "id": "main_gate",
+      "title": "Main Gate",
+      "description": "Primary campus entrance guarded 24/7 for security.",
+      "lat": 8.361278, 
+      "lng": 124.867601,
+      "category": "Entrance",
+      "icon": "gate.png"
+    },
+    {
+      "id": "evac_field",
+      "title": "Evacuation Area",
+      "description": "Open field designated for emergency evacuations.",
+      "lat": 8.360119, 
+      "lng": 124.868267,
+      "category": "Safety",
+      "icon": "evac.png"
+    }
+  ]
+}
