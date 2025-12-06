@@ -26,8 +26,10 @@ body {
     min-height: 100vh;
 }
 
+/* ➡️ FIX 1: Change sidebar to a fixed pixel width */
 .sidebar {
-    width: 20%;
+    width: 180px; /* Changed from 20% to a fixed width */
+    min-width: 180px; /* Ensures it doesn't shrink on larger screens */
     background: linear-gradient(180deg, #232428, #2b2d31);
     padding: 18px 12px;
     display: flex;
@@ -71,7 +73,7 @@ body {
 
 /* Main */
 .main-area {
-    flex: 1;
+    flex: 1; /* Main area takes up all remaining space */
     padding: 22px;
 }
 
@@ -147,7 +149,9 @@ body {
 
 .card.large {
     padding: 20px;
-    height: 360px;
+    /* Removed fixed height: 360px to allow content to fully fill vertical space */
+    height: auto; 
+    min-height: 360px; /* Added min-height to maintain a minimum size */
 }
 
 /* lists, small utils */
@@ -367,12 +371,14 @@ body {
     color: #c9d3df;
 }
 
+/* ➡️ FIX 2: Added margin-bottom to list items for visual separation */
 .list li {
     padding: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 5px; /* Added separation between list items */
 }
 
 /* --- FIX for Button Alignment (Section 1) --- */

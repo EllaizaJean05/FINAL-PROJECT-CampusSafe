@@ -3,120 +3,116 @@
 <html lang="en">
 
 <head>
-     
-   
-  <meta charset="utf-8" />
-     
-   
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <title>CampusSafe — Reports</title>
-     
-   
-  <link rel="stylesheet" href="assets/style.css">
-     
-   
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-     
-   
-  <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+     
+   
+  <meta charset="utf-8" />
+     
+   
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>CampusSafe — Reports</title>
+     
+   
+  <link rel="stylesheet" href="assets/style.css">
+     
+   
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+     
+   
+  <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-     
-   
-  <script defer src="assets/classes.js"></script>
-     
-   
-  <script defer src="assets/auth.js"></script>
-     
-   
-  <script defer src="assets/reports.js"></script>
+     
+   
+  <script defer src="assets/classes.js"></script>
+     
+   
+  <script defer src="assets/auth.js"></script>
+     
+   
+  <script defer src="assets/reports.js"></script>
 
 </head>
 
 <body>
-      <div class="app">
-            <aside class="sidebar">
-                  <div class="logo-sm">CS</div>
-                  <nav>
-                        <a href="dashboard.html">Dashboard</a>
-                        <a href="weather.html">Weather</a>
-                        <a href="map.html">Map</a>
-                        <a href="reports.html" class="active">Reports</a>
-                        <a href="about.html">About</a>
-                      </nav>
-                  <div class="bottom">
-                        <button id="logoutBtn" class="btn link">Logout</button>
-                      </div>
-                </aside>
+      <div class="app">
+            <aside class="sidebar">
+                  <div class="logo-sm">CS</div>
+                  <nav>
+                        <a href="dashboard.html">Dashboard</a>
+                        <a href="weather.html">Weather</a>
+                        <a href="map.html">Map</a>
+                        <a href="reports.html" class="active">Reports</a>
+                        <a href="about.html">About</a>
+                      </nav>
+                  <div class="bottom">
+                        <button id="logoutBtn" class="btn link">Logout</button>
+                      </div>
+                </aside>
 
-        <main class="main-area">
-              <header class="topbar">
-                    <h2>Reports</h2>
-                    <div class="muted">Add incidents, hazards, or safety observations</div>
-                  </header>
+        <main class="main-area">
+              <header class="topbar">
+                    <h2>Reports</h2>
+                    <div class="muted">Add incidents, hazards, or safety observations</div>
+                  </header>
 
-              <section class="content grid-cols-2">
-                    <div>
-                            <div class="card">
-                                    <h4>Create / Update Report</h4>
-                                    <form id="reportForm" class="form">
-                                            <input type="hidden" id="reportId" />
-                                            <label>
-                                                    <span>Title</span>
-                                                    <input id="rtitle" required
-                  placeholder="e.g., Flooded walkway near Gate 2">
-                                                </label>
-                                            <label>
-                                                    <span>Type</span>
-                                                    <select id="rtype">
-                                                            <option value="hazard">Hazard</option>
-                                                            <option value="info">Info</option>
-                                                            <option value="alert">Alert</option>
-                                                        </select>
-                                                </label>
-                                            <label>
-                                                    <span>Description</span>
-                                                    <textarea id="rdesc" rows="3"
-                  placeholder="Short description"></textarea>
-                                                </label>
+                            <section class="content grid-cols-2">
+                    
+                                        <div class="card large">
+                            <h4>Create / Update Report</h4>
+                            <form id="reportForm" class="form">
+                                    <input type="hidden" id="reportId" />
+                                    <label>
+                                            <span>Title</span>
+                                            <input id="rtitle" required
+                  placeholder="e.g., Flooded walkway near Gate 2">
+                                        </label>
+                                    <label>
+                                            <span>Type</span>
+                                            <select id="rtype">
+                                                    <option value="hazard">Hazard</option>
+                                                    <option value="info">Info</option>
+                                                    <option value="alert">Alert</option>
+                                                </select>
+                                        </label>
+                                    <label>
+                                            <span>Description</span>
+                                            <textarea id="rdesc" rows="3"
+                  placeholder="Short description"></textarea>
+                                        </label>
 
-                                            <div class="form-row">
-                                                    <label>
-                                                            <span>Latitude</span>
-                                                            <input id="rlat" placeholder="8.360191" />
-                                                        </label>
-                                                    <label>
-                                                            <span>Longitude</span>
-                                                            <input id="rlng" placeholder="124.868320" />
-                                                        </label>
-                                                </div>
-                                        </form>
-                                    <div class="muted small">OR click on the mini-map below to set coordinates.</div>
-            <div class="report-buttons">
-                                        <button id="saveBtn" type="button" class="btn primary">Save Report</button>
-                                        <button id="clearBtn" type="button" class="btn ghost">Clear</button>
-            </div>
-                               
-          </div>
+                                    <div class="form-row">
+                                            <label>
+                                                    <span>Latitude</span>
+                                                    <input id="rlat" readonly placeholder="8.360191" />
+                                                </label>
+                                            <label>
+                                                    <span>Longitude</span>
+                                                    <input id="rlng" readonly placeholder="124.868320" />
+                                                </label>
+                                        </div>
+                                        <div class="muted small mt">OR click on the mini-map below to set coordinates.</div>
+                                    </form>
+                                    
+                                                                        <div id="miniMap" style="height: 200px; border-radius: 8px; margin-top: 10px;"></div>
+                                    
+                                                                        <div class="report-buttons">
+                                        <button id="saveBtn" type="button" class="btn primary">Save Report</button>
+                                        <button id="clearBtn" type="button" class="btn ghost">Clear</button>
+                                    </div>
+                                </div>
+                                
 
-                            <div class="card mt" style="height:260px;">
-                                    <div id="miniMap" style="width:100%; height:100%; border-radius:8px;"></div>
-                                </div>
-                        </div>
-                   
-                    <div>
-                            <div class="card">
-                                    <h4>Existing Reports</h4>
-                                    <ul id="reportsList" class="list"></ul>
-                                   
-                                </div>
-                        </div>
+                    
+                                        <div class="card large">
+                            <h4>Existing Reports</h4>
+                            <ul id="reportsList" class="list"></ul>
+                        </div>
 
 
-                  </section>
-          </main>
+                  </section>
+          </main>
 
-         
-      </div>
+         
+      </div>
 </body>
 
 </html>

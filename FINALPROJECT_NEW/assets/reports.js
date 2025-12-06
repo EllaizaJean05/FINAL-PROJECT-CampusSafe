@@ -36,6 +36,21 @@
         rlng.value = lng.toFixed(6);
         clickMarker.setLatLng(e.latlng);
     });
+    
+    // **FIX 1: Listeners to update marker when user manually types coordinates**
+    rlat.addEventListener('input', updateMarkerFromInput);
+    rlng.addEventListener('input', updateMarkerFromInput);
+
+    function updateMarkerFromInput() {
+        const lat = parseFloat(rlat.value);
+        const lng = parseFloat(rlng.value);
+
+        // Only update if both are valid numbers
+        if (!isNaN(lat) && !isNaN(lng)) {
+            clickMarker.setLatLng([lat, lng]);
+        }
+    }
+
 
     function loadReports() {
         return (Storage.loadReports() || []).map(r => new Report(r));
@@ -57,19 +72,19 @@
             const doneBtnClass = r.status === 'Done' ? 'btn ghost small' : 'btn primary small';
 
             return `
-              <li>
-                <div>
-                  <strong>${r.title}</strong>
-                  <div class="muted small">${statusText} — ${new Date(r.createdAt).toLocaleString()}</div>
-                  <div class="muted small">${r.description || ''}</div>
-                </div>
-                <div>
-                  <button class="btn ghost small" data-edit="${r.id}">Edit</button>
-                  <button class="${doneBtnClass}" data-status="${r.id}">DONE</button>
-                  <button class="btn" data-delete="${r.id}">Delete</button>
-                </div>
-              </li>
-            `;
+             <li>
+               <div>
+                 <strong>${r.title}</strong>
+                 <div class="muted small">${statusText} — ${new Date(r.createdAt).toLocaleString()}</div>
+                 <div class="muted small">${r.description || ''}</div>
+               </div>
+               <div>
+                 <button class="btn ghost small" data-edit="${r.id}">Edit</button>
+                 <button class="${doneBtnClass}" data-status="${r.id}">DONE</button>
+                 <button class="btn" data-delete="${r.id}">Delete</button>
+               </div>
+             </li>
+            `;
         }).join('');
 
         // attach listeners for delete, edit, and status
@@ -130,7 +145,8 @@
             type: rtype.value,
             lat: rlat.value || null,
             lng: rlng.value || null,
-            author: (Storage.loadUser()?.username) || 'anonymous' // Assuming Storage.loadUser exists
+            // This now works because Storage.loadUser() is fixed in classes.js
+            author: (Storage.loadUser()?.username) || 'anonymous' 
         };
 
         const existing = loadReports();
@@ -138,7 +154,9 @@
             // update
             const idx = existing.findIndex(x => x.id === data.id);
             if (idx >= 0) {
+                // Preserve status and createdAt on update
                 data.status = existing[idx].status;
+                data.createdAt = existing[idx].createdAt; 
                 existing[idx] = new Report(data);
             }
         } else {
