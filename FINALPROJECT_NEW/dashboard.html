@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CampusSafe — Dashboard</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> 
+  <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="assets/classes.js"></script>
   <script defer src="assets/auth.js"></script>
@@ -37,7 +39,7 @@
     <div class="clock" id="clock">--:--</div>
   </header>
 
-  <section class="content grid-cols">
+  <section class="content new-dashboard-grid">
     <div class="card large" id="chartCard">
       <h3>Reports — last 7 days</h3>
       <canvas id="reportsChart" height="120"></canvas>
@@ -56,6 +58,20 @@
     <div class="card">
       <h4>Latest Alerts</h4>
       <ul id="alertsList" class="list-compact muted">No alerts</ul>
+    </div>
+    
+    <div class="card map-full-width">
+      <h3>Report Map</h3>
+      <div id="dashboardMap" style="height: 380px; border-radius:12px;"></div>
+    </div>
+    
+    <div class="card stats-table-col">
+      <h3>Report Statistics</h3>
+      <table id="statsTable" class="table-compact">
+        <thead><tr><th>Metric</th><th>Count</th></tr></thead>
+        <tbody>
+          </tbody>
+      </table>
     </div>
 
   </section>

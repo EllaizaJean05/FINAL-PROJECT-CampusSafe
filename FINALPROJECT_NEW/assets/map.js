@@ -23,7 +23,7 @@ const NBSC_COORDS = [8.360191, 124.868320];
             .bindPopup(`<strong>${p.title}</strong><div class="muted">${p.desc}</div>`);
     });
 
-    // 3. Load JSON markers (YES, perfect location)
+    // 3. Load JSON markers 
     fetch("markers.json")
         .then(res => res.json())
         .then(data => {

@@ -7,12 +7,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CampusSafe — Login</title>
   <link rel="stylesheet" href="assets/style.css">
-  <!-- <style>
-    * {
-      outline: 1px solid red;
-    }
-  </style> -->
-
   <script defer src="assets/classes.js"></script>
   <script defer src="assets/auth.js"></script>
 </head>
@@ -38,9 +32,23 @@
         </label>
 
         <button type="submit" class="btn primary full">Login</button>
-        <p class="muted small">Put your username and password — click Login to continue.</p>
+        <p class="muted small mt">
+            Don't have an account? 
+            <a href="#" id="switchToRegister"><strong>Register here</strong></a>
+        </p>
       </form>
-
+      
+      <form id="registerForm" class="form mt" style="display:none;">
+        <h3>New Account</h3>
+        <label><span>Username</span><input type="text" id="regUsername" required placeholder="e.g. student02"></label>
+        <label><span>Password</span><input type="password" id="regPassword" required placeholder="password"></label>
+        <button type="submit" class="btn primary full">Register</button>
+        <p class="muted small mt">
+            Already have an account? 
+            <a href="#" id="switchToLogin"><strong>Login</strong></a>
+        </p>
+      </form>
+      
       <footer class="auth-foot">
         <br>
         <p>Project: <strong>CampusSafe</strong> — SDG 11</p>

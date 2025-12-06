@@ -13,11 +13,19 @@
     const rlng = document.getElementById('rlng');
     const reportId = document.getElementById('reportId');
     const reportsList = document.getElementById('reportsList');
+
+    // NEW: Get the Save and Clear buttons by their new IDs/structure
+    const saveBtn = document.getElementById('saveBtn');
     const clearBtn = document.getElementById('clearBtn');
 
     const MINI_COORDS = [8.360191, 124.868320];
 
     // init mini map
+    if (typeof L === 'undefined') {
+        console.error("Leaflet library not loaded. Map functionality disabled.");
+        return;
+    }
+
     const mini = L.map('miniMap').setView(MINI_COORDS, 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mini);
     const clickMarker = L.marker(MINI_COORDS, { draggable: false }).addTo(mini);
@@ -45,17 +53,35 @@
             return;
         }
         reportsList.innerHTML = list.map(r => {
-            return `<li>         <div>           <strong>${r.title}</strong><div class="muted small">${new Date(r.createdAt).toLocaleString()}</div>           <div class="muted small">${r.description || ''}</div>         </div>         <div>           <button class="btn ghost small" data-edit="${r.id}">Edit</button>           <button class="btn" data-delete="${r.id}">Delete</button>         </div>       </li>`;
+            const statusText = r.status === 'Done' ? 'Status: Done' : 'Status: Pending';
+            const doneBtnClass = r.status === 'Done' ? 'btn ghost small' : 'btn primary small';
+
+            return `
+              <li>
+                <div>
+                  <strong>${r.title}</strong>
+                  <div class="muted small">${statusText} — ${new Date(r.createdAt).toLocaleString()}</div>
+                  <div class="muted small">${r.description || ''}</div>
+                </div>
+                <div>
+                  <button class="btn ghost small" data-edit="${r.id}">Edit</button>
+                  <button class="${doneBtnClass}" data-status="${r.id}">DONE</button>
+                  <button class="btn" data-delete="${r.id}">Delete</button>
+                </div>
+              </li>
+            `;
         }).join('');
-        // attach listeners
+
+        // attach listeners for delete, edit, and status
         reportsList.querySelectorAll('[data-delete]').forEach(b => {
             b.addEventListener('click', (e) => {
                 const id = e.target.dataset.delete;
                 const remaining = loadReports().filter(r => r.id !== id);
                 saveReports(remaining);
-                renderReports(); // re-render
+                renderReports();
             });
         });
+
         reportsList.querySelectorAll('[data-edit]').forEach(b => {
             b.addEventListener('click', (e) => {
                 const id = e.target.dataset.edit;
@@ -71,10 +97,32 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
+
+        reportsList.querySelectorAll('[data-status]').forEach(b => {
+            b.addEventListener('click', (e) => {
+                const id = e.target.dataset.status;
+                const reports = loadReports();
+                const report = reports.find(rr => rr.id === id);
+                if (report && report.status !== 'Done') {
+                    report.status = 'Done';
+                    const idx = reports.findIndex(x => x.id === id);
+                    reports[idx] = new Report(report);
+                    saveReports(reports);
+                    renderReports();
+                }
+            });
+        });
     }
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    // --- MANUAL CLICK LISTENER FOR SAVE BUTTON ---
+    saveBtn.addEventListener('click', () => {
+        // Manually check validity (since we're not using native form submit)
+        if (!rtitle.value.trim()) {
+            alert('Title required');
+            rtitle.focus();
+            return;
+        }
+
         const data = {
             id: reportId.value || null,
             title: rtitle.value.trim(),
@@ -82,16 +130,15 @@
             type: rtype.value,
             lat: rlat.value || null,
             lng: rlng.value || null,
-            author: (Storage.loadUser()?.username) || 'anonymous'
+            author: (Storage.loadUser()?.username) || 'anonymous' // Assuming Storage.loadUser exists
         };
-        if (!data.title) { alert('Title required'); return; }
-
 
         const existing = loadReports();
         if (data.id) {
             // update
             const idx = existing.findIndex(x => x.id === data.id);
             if (idx >= 0) {
+                data.status = existing[idx].status;
                 existing[idx] = new Report(data);
             }
         } else {
@@ -101,13 +148,18 @@
         saveReports(existing);
         form.reset();
         reportId.value = '';
+        clickMarker.setLatLng(MINI_COORDS); // Reset marker position
         renderReports();
         alert('Report saved. It will appear on the map.');
-
-
     });
 
-    clearBtn.addEventListener('click', () => { form.reset(); reportId.value = ''; });
+
+    // --- CLEAR BUTTON LISTENER ---
+    clearBtn.addEventListener('click', () => {
+        form.reset();
+        reportId.value = '';
+        clickMarker.setLatLng(MINI_COORDS); // Reset marker position
+    });
 
     // initial render
     renderReports();

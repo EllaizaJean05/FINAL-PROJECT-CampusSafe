@@ -1,4 +1,3 @@
-
 /* Reset */
 
 * {
@@ -103,12 +102,40 @@ body {
 .content {
     display: grid;
     gap: 18px;
+    /* Default grid for smaller pages */
     grid-template-columns: 1fr 320px;
 }
 
-.grid-cols {
+/* Dashboard Grid with Map and Stats */
+.content.new-dashboard-grid {
+    display: grid;
+    gap: 18px;
+    /* Define 3 columns: Report Chart | Summary | Alerts */
     grid-template-columns: 1fr 320px 320px;
+    grid-template-areas:
+        "chart summary alerts"
+        "map map stats";
+    /* Map spans two columns, Stats takes one */
 }
+
+#chartCard {
+    grid-area: chart;
+}
+
+.map-full-width {
+    grid-area: map;
+}
+
+.stats-table-col {
+    grid-area: stats;
+}
+
+
+/* Reports Page Two-Column Grid */
+.content.grid-cols-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
 
 /* cards */
 .card {
@@ -145,6 +172,20 @@ body {
     font-weight: 700;
     color: #fff;
 }
+
+/* Table Style for Stats */
+.table-compact {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-compact th,
+.table-compact td {
+    padding: 8px 0;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
 
 /* forms */
 .form label {
@@ -190,6 +231,11 @@ body {
     cursor: pointer;
     background: rgba(255, 255, 255, 0.03);
     color: #eaf0fb;
+}
+
+.btn.small {
+    padding: 4px 8px;
+    font-size: 13px;
 }
 
 .btn.primary {
@@ -253,13 +299,28 @@ body {
 }
 
 /* responsive */
+@media (max-width:1400px) {
+
+    /* Dashboard Tablet Layout */
+    .content.new-dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "chart chart"
+            "summary alerts"
+            "map stats";
+    }
+}
+
 @media (max-width:1000px) {
     .content {
         grid-template-columns: 1fr;
     }
 
-    .grid-cols {
+    .content.new-dashboard-grid,
+    .content.grid-cols-2 {
         grid-template-columns: 1fr;
+        grid-template-areas: none;
+        /* Reset grid-area for simple stacking */
     }
 
     .sidebar {
@@ -313,3 +374,23 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
+/* --- FIX for Button Alignment (Section 1) --- */
+
+/* Flex container for the two buttons to force them into a row */
+.report-buttons {
+    display: flex;
+    gap: 8px;
+    /* Space between the two buttons */
+    margin-top: 15px;
+    /* Add some space above the buttons */
+    margin-bottom: 5px;
+    /* Small space below the buttons */
+}
+
+/* Ensure buttons inside the flex container expand evenly */
+.report-buttons button {
+    flex: 1;
+}
+
+/* --- END FIX --- */
