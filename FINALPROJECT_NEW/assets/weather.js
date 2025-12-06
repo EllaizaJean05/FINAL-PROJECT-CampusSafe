@@ -1,5 +1,3 @@
-/* weather.js — fetches weather from OpenWeather and renders */
-
 const OWM_API_KEY = '5b1022446d333e036348ab6af523a92c'; 
 const NBSC_COORDS = { lat: 8.360191, lon: 124.868320 };
 
@@ -38,8 +36,6 @@ const NBSC_COORDS = { lat: 8.360191, lon: 124.868320 };
         hum.textContent = '--';
         wind.textContent = '--';
     }
-
-
     async function fetchByCity(city) {
         try {
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OWM_API_KEY}&units=metric`;
@@ -87,8 +83,6 @@ const NBSC_COORDS = { lat: 8.360191, lon: 124.868320 };
         });
         localStorage.setItem('campussafe_lastweather', JSON.stringify(w));
     }
-
-    // Attempt to load NBSC weather on page load
     fetchByCoords(NBSC_COORDS.lat, NBSC_COORDS.lon);
 
 })();

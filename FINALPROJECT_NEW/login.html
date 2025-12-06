@@ -22,20 +22,16 @@
                     Username
                     <input type="text" id="username" required />
                 </label>
-
                 <label class="mt">
                     Password
                     <input type="password" id="password" required />
                 </label>
-
                 <button class="btn primary full mt" type="submit">Log In</button>
             </form>
-
+            
         </div>
     </div>
-
     <script>
-        // Simple login simulation – no backend needed
         document.getElementById("loginForm").addEventListener("submit", function(e) {
             e.preventDefault();
 
@@ -46,12 +42,8 @@
                 alert("Please fill all fields.");
                 return;
             }
-
-            // Save username in localStorage
-            localStorage.setItem("campus_user", username);
-
-            // Redirect to dashboard
-            window.location.href = "dashboard.html";
+            localStorage.setItem("campus_user", username); // Save username in localStorage
+            window.location.href = "dashboard.html"; // Redirect to dashboard
         });
     </script>
 

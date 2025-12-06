@@ -1,5 +1,3 @@
-// assets/classes.js
-
 class Report {
     constructor(data) {
         this.id = data.id || 'r' + Date.now();
@@ -14,13 +12,12 @@ class Report {
     }
 }
 
-// Fixed Storage Utility
 const Storage = {
     loadReports: () => JSON.parse(localStorage.getItem('campussafe_reports') || '[]'),
     saveReports: (list) => localStorage.setItem('campussafe_reports', JSON.stringify(list)),
-    loadAlerts: () => JSON.parse(localStorage.getItem('campussafe_alerts') || '[]'), 
+    loadAlerts: () => JSON.parse(localStorage.getItem('campussafe_alerts') || '[]'),
     
-    // **FIXED**: Correctly loads the current user object
+    // **FIXED LOGIC**: This function must return the object directly or null
     loadUser: () => {
         const username = localStorage.getItem('campus_user');
         return username ? { username: username } : null; 

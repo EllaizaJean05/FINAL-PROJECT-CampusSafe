@@ -1,7 +1,4 @@
-/* reports.js — manage create/read/update/delete of reports in localStorage with a mini Leaflet map */
-
 (function () {
-    // only run on reports page
     if (!document.getElementById('reportForm')) return;
 
     // dom
@@ -37,7 +34,7 @@
         clickMarker.setLatLng(e.latlng);
     });
     
-    // **FIX 1: Listeners to update marker when user manually types coordinates**
+    //Listeners to update marker when user manually types coordinates
     rlat.addEventListener('input', updateMarkerFromInput);
     rlng.addEventListener('input', updateMarkerFromInput);
 
@@ -145,7 +142,6 @@
             type: rtype.value,
             lat: rlat.value || null,
             lng: rlng.value || null,
-            // This now works because Storage.loadUser() is fixed in classes.js
             author: (Storage.loadUser()?.username) || 'anonymous' 
         };
 
@@ -160,7 +156,7 @@
                 existing[idx] = new Report(data);
             }
         } else {
-            // create
+            // else mag create ka
             existing.push(new Report(data));
         }
         saveReports(existing);
@@ -178,8 +174,6 @@
         reportId.value = '';
         clickMarker.setLatLng(MINI_COORDS); // Reset marker position
     });
-
-    // initial render
     renderReports();
 
 })();

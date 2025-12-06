@@ -36,9 +36,9 @@ const NBSC_COORDS = [8.360191, 124.868320]; // Define coordinates here for map
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
     }
-
+    
     function renderReportMarkers(reports) {
-        // Clear existing markers if map is present (for re-render)
+        // Clear existing markers if map is present
         if (map) {
             map.eachLayer(layer => {
                 if (layer instanceof L.Circle) { map.removeLayer(layer); }
@@ -48,7 +48,7 @@ const NBSC_COORDS = [8.360191, 124.868320]; // Define coordinates here for map
                 if (r.lat && r.lng) {
                     L.circle([r.lat, r.lng], {
                         radius: 20,
-                        // Use a different color if done
+                        // color if done
                         color: r.status === 'Done' ? '#585D71' : '#ff6b6b', 
                         fillOpacity: 0.6
                     }).addTo(map)
@@ -81,8 +81,6 @@ const NBSC_COORDS = [8.360191, 124.868320]; // Define coordinates here for map
         }
     }
     // --- END MAP AND STATS LOGIC ---
-
-
     function render() {
         const reports = loadReports();
         
