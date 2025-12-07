@@ -8,28 +8,27 @@
 </head>
 <body>
 <header id="topbar">
-  <div class="brand">CampusSafe</div>
-  <div class="controls">
-    <button onclick="window.location.href='dashboard.html'">Dashboard</button>
-    <button onclick="window.location.href='weather.html'">Weather</button>
-    <button onclick="window.location.href='map.html'">Map</button>
-    <button onclick="window.location.href='reports.html'">Reports</button>
-    <button onclick="window.location.href='profile.html'">Profile</button>
-    <button onclick="window.location.href='about.html'">About</button>
-    <button onclick="logout()">Logout</button>
-  </div>
+  <div class="brand">CampusSafe</div>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>   <div class="controls" id="navControls">     <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+    <button onclick="window.location.href='weather.html'">Weather</button>
+    <button onclick="window.location.href='map.html'">Map</button>
+    <button onclick="window.location.href='reports.html'">Reports</button>
+    <button onclick="window.location.href='profile.html'">Profile</button>
+    <button onclick="window.location.href='about.html'">About</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 </header>
 
 <main class="container">
-  <div class="card">
-    <h2>Reports (CRUD)</h2>
-    <div class="row">
-      <input id="reportType" placeholder="Type (e.g., Flood, Fire, Theft)">
-      <input id="reportDesc" placeholder="Short description">
-      <button id="addReportBtn">Add Report</button>
-    </div>
-    <table id="reportsTable" class="table"></table>
-  </div>
+  <div class="card">
+    <h2>Reports (CRUD)</h2>
+    <div class="row">
+      <input id="reportType" placeholder="Type (e.g., Flood, Fire, Theft)">
+      <input id="reportDesc" placeholder="Short description">
+      <button id="addReportBtn">Add Report</button>
+    </div>
+    <table id="reportsTable" class="table"></table>
+  </div>
 </main>
 
 <script src="reports.js"></script>
