@@ -14,21 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// --- CORE FUNCTIONS ---
-
-// Function to load and render the reports table
+//core functions
 function loadReportsTable() {
     const reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
     const table = document.getElementById("reportsTable");
     
-    // FIX: Added Status column header
     table.innerHTML = `<tr><th>Type</th><th>Description</th><th>Date</th><th>Status</th><th>Actions</th></tr>` +
         reports.map((r, i) => {
-            // FIX: Retrieve or default the status
             const status = r.status || 'Pending';
             let statusClass = (status === 'Pending') ? 'status-pending' : 'status-completed';
-            
-            // FIX: ADDED DONE button logic (disabled if completed)
             const actionButtons = status === 'Completed'
                 ? `<button class="btn-done" disabled>DONE</button>`
                 : `<button onclick="markReportDone(${i})" class="btn-done">DONE</button>`;
@@ -49,34 +43,32 @@ function loadReportsTable() {
 
 function addReport(type, desc, lat = null, lng = null) {
     const reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
-    // FIX: ADDED Initial status of "Pending"
     reports.push({ type, desc, date: new Date().toLocaleString(), lat, lng, status: "Pending" }); 
     localStorage.setItem("reports_" + user, JSON.stringify(reports));
     loadReportsTable();
     try { loadDashboard(); } catch (e) { }
 }
 
-// FIX: DELETE Button Logic with Confirmation
+//delete w/ confirmation
 function confirmDeleteReport(index) {
     if (confirm("Are you sure you want to permanently delete this report? This action cannot be undone.")) {
         deleteReport(index);
     }
 }
 
-// FIX: The actual delete logic
+//delete
 function deleteReport(index) {
     let reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
-    reports.splice(index, 1); // Remove report at specific index
+    reports.splice(index, 1); 
     localStorage.setItem("reports_" + user, JSON.stringify(reports));
     loadReportsTable();
-    try { loadDashboard(); } catch (e) { } // Update dashboard
+    try { loadDashboard(); } catch (e) { } 
 }
-
-// FIX: ADDED DONE Button Logic
+//done button
 function markReportDone(index) {
     let reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
-    reports[index].status = "Completed"; // Update status property
+    reports[index].status = "Completed"; 
     localStorage.setItem("reports_" + user, JSON.stringify(reports));
     loadReportsTable();
-    try { loadDashboard(); } catch (e) { } // Update dashboard
+    try { loadDashboard(); } catch (e) { } 
 }

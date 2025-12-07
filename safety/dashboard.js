@@ -1,7 +1,4 @@
-// --- GLOBAL CHART VARIABLES ---
 let reportsChart, timelineChart;
-
-// Load Dashboard when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
     loadDashboard();
 });
@@ -16,20 +13,15 @@ function loadDashboard() {
     }
 
     const reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
+    updateSafetyAlert('none', 'All systems normal.');  // 1. Safety Alert
 
-    // 1. Safety Alert
-    updateSafetyAlert('none', 'All systems normal.');
+    fetchWeatherSnapshot(); // 2. Mini Weather
 
-    // 2. Mini Weather
-    fetchWeatherSnapshot();
-
-    // 3. Recent Reports
-    const list = document.getElementById("recentReports");
+    const list = document.getElementById("recentReports"); // 3. Recent Reports
     list.innerHTML = reports.slice(-5).reverse()
         .map(r => `<li>${r.type} – ${r.desc} (${r.date})</li>`).join("");
 
-    // 4. Charts
-    const typeCount = {};
+    const typeCount = {}; // 4. Charts
     const reportDates = {};
     reports.forEach(r => {
         typeCount[r.type] = (typeCount[r.type] || 0) + 1;
@@ -75,8 +67,6 @@ function loadDashboard() {
     setTimeout(loadDashboardMap, 100);
 }
 
-// 🗺️ --- Dashboard Map Initialization (FINAL: REPORTS ONLY) --- 🗺️
-// 🗺️ --- Dashboard Map Initialization (FINAL: REPORTS ONLY, NO CLICK TO REPORT) --- 🗺️
 function loadDashboardMap() {
     const container = document.getElementById("dashboardMap");
     if (!container || typeof L === 'undefined') return;
@@ -114,7 +104,6 @@ function loadDashboardMap() {
         }
     });
     
-    // REMOVED: The map.on('click', ...) event listener has been deleted.
 }
     
     // Load Dynamic User Reports ONLY (from localStorage)
@@ -130,7 +119,6 @@ function loadDashboardMap() {
         }
     });
     
-    // OPTIONAL: Click on map to add new report
     map.on('click', function (e) {
         const type = prompt("Enter report type:");
         const desc = prompt("Enter report description:");

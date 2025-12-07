@@ -1,34 +1,40 @@
-// main.js - common functions
-
-// FIX: NEW function to toggle the mobile menu
 function toggleMenu() {
-    const controls = document.getElementById('navControls');
-    controls.classList.toggle('open');
+    const controls = document.getElementById('nav-controls');
+    if (controls) {
+        controls.classList.toggle('open');
+    }
 }
+
+//Core App Functions (Retained)
 
 function showSection(id) {
-  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
-  document.getElementById(id)?.classList.remove("hidden");
+    document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+    document.getElementById(id)?.classList.remove("hidden");
+}
+function logout() {
+    localStorage.removeItem("activeUser");
+    window.location.href = "index.html";
 }
 
-function logout() {
-  localStorage.removeItem("activeUser");
-  window.location.href = "index.html";
-}
+//Consolidated Event Listener 
+
 document.addEventListener('DOMContentLoaded', () => {
-    initMap();
-    initCharts();
-    populateRecentReports();
-    
-    // Call the alert function here:
-    updateSafetyAlert('active', 'Shelter in place due to campus security incident near Building A.');
-});
-document.addEventListener('DOMContentLoaded', () => {
-    initMap();
-    initCharts();
-    populateRecentReports();
-    updateSafetyAlert('none', 'All systems normal.'); // Set initial state
-    
-    // Call the weather function:
-    fetchWeatherSnapshot(); 
+    // Dashboard initialization functions
+    if (typeof initMap === 'function') {
+        initMap(); 
+    }
+    if (typeof initCharts === 'function') {
+        initCharts(); 
+    }
+    if (typeof populateRecentReports === 'function') {
+        populateRecentReports(); 
+    }
+    
+    // Safety Alert Initialization (using 'none' as default for safety)
+    if (typeof updateSafetyAlert === 'function') {
+        updateSafetyAlert('none', 'All systems normal.'); 
+    }
+    if (typeof fetchWeatherSnapshot === 'function') {
+        fetchWeatherSnapshot(); 
+    }
 });

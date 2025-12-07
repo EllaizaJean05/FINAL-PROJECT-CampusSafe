@@ -3,10 +3,10 @@ function togglePassVisibility(id, element) {
     const input = document.getElementById(id);
     if (input.type === "password") {
         input.type = "text";
-        element.textContent = "🔒"; // Change icon to locked
+        element.textContent = "🔒";
     } else {
         input.type = "password";
-        element.textContent = "👁️"; // Change icon to eye
+        element.textContent = "👁️"; 
     }
 }
 
@@ -50,10 +50,8 @@ document.getElementById("loginBtn").addEventListener("click", () => {
 
   localStorage.setItem("activeUser", user);
 
-  // initialize reports if not exist
   if(!localStorage.getItem("reports_" + user)) {
     localStorage.setItem("reports_" + user, JSON.stringify([]));
   }
-
-  window.location.href = "dashboard.html"; // redirect
+  window.location.href = "dashboard.html";
 });

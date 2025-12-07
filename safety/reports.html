@@ -9,7 +9,9 @@
 <body>
 <header id="topbar">
   <div class="brand">CampusSafe</div>
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>   <div class="controls" id="navControls">     <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <div class="controls" id="navControls">
+    <button onclick="window.location.href='dashboard.html'">Dashboard</button>
     <button onclick="window.location.href='weather.html'">Weather</button>
     <button onclick="window.location.href='map.html'">Map</button>
     <button onclick="window.location.href='reports.html'">Reports</button>
@@ -23,8 +25,8 @@
   <div class="card">
     <h2>Reports (CRUD)</h2>
     <div class="row">
-      <input id="reportType" placeholder="Type (e.g., Flood, Fire, Theft)">
-      <input id="reportDesc" placeholder="Short description">
+      <input id="reportType" type="text" placeholder="Type (e.g., Flood, Fire, Theft)">
+      <input id="reportDesc" type="text" placeholder="Short description">
       <button id="addReportBtn">Add Report</button>
     </div>
     <table id="reportsTable" class="table"></table>
