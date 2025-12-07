@@ -1,8 +1,4 @@
-/* ------------------------- */
-/* 🎨 CampusSafe Professional Theme (Dark Teal/Navy) */
-/* ------------------------- */
 
-/* --- Variables & Reset --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,10 +7,10 @@
 }
 
 :root {
-    /* Professional Color Palette */
-    --color-primary: #00796B; /* Deep Teal - Trustworthy/Safety */
-    --color-secondary: #004D40; /* Darker Teal/Navy - Accent */
-    --color-background: #F4F7F9; /* Light Grey Background */
+   
+    --color-primary: #00796B; 
+    --color-secondary: #004D40; 
+    --color-background: #F4F7F9; 
     --color-card: #FFFFFF;
     --color-text: #333333;
     --color-subtext: #666666;
@@ -28,7 +24,7 @@ body {
     background-color: var(--color-background);
     color: var(--color-text);
     line-height: 1.6;
-    padding-top: 60px; /* Space for the fixed topbar */
+    padding-top: 60px; 
 }
 
 a {
@@ -241,7 +237,7 @@ button {
     background-color: #008D79;
 }
 
-
+    
 /* --- Responsive Tweaks --- */
 @media (max-width: 768px) {
     .grid, .chart-row {
