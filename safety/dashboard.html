@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusSafe - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header id="topbar">
+        <div class="brand">CampusSafe</div>
+        <div class="controls">
+            <button onclick="window.location.href='dashboard.html'">Dashboard</button>
+            <button onclick="window.location.href='weather.html'">Weather</button>
+            <button onclick="window.location.href='map.html'">Map</button>
+            <button onclick="window.location.href='reports.html'">Reports</button>
+            <button onclick="window.location.href='profile.html'">Profile</button>
+            <button onclick="window.location.href='about.html'">About</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </header>
+    <main class="container">
+        <div class="card">
+            <h2>Dashboard</h2>
+            <div class="grid">
+                <div class="box">
+                    <h3>Safety Alert</h3>
+                    <p id="safetyAlert">No active alerts.</p>
+                </div>
+                <div class="box">
+                    <h3>Weather Snapshot</h3>
+                    <div id="miniWeather">No city searched yet.</div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-card">
+                    <h4>Reports by Type</h4>
+                    <canvas id="reportsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h4>Reports Timeline (last 10)</h4>
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h4>Reports Map View</h4>
+                <div id="dashboardMap"></div> 
+            </div> 
+            <div class="card small">
+                <h4>Recent Reports</h4>
+                <ul id="recentReports"></ul>
+            </div>
+        </div>
+    </main> 
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        function initMap() {
+           
+            var map = L.map('dashboardMap').setView([8.360179, 124.868653], 13);
+
+                // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add a marker
+            L.marker([8.360179, 124.868653]).addTo(map)
+                .bindPopup('<b>Recent Report</b><br>Incident near campus library.')
+                .openPopup();
+        }
+
+        // 3. Ensure initMap runs after the DOM is fully loaded to prevent race conditions
+        document.addEventListener('DOMContentLoaded', initMap); 
+    </script>
+</body> 
+</html>
