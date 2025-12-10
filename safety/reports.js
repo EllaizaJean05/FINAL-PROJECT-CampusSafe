@@ -43,10 +43,11 @@ function loadReportsTable() {
 
 function addReport(type, desc, lat = null, lng = null) {
     const reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
+    // Ensure the date format here is consistent (toLocaleString includes time)
     reports.push({ type, desc, date: new Date().toLocaleString(), lat, lng, status: "Pending" }); 
     localStorage.setItem("reports_" + user, JSON.stringify(reports));
     loadReportsTable();
-    try { loadDashboard(); } catch (e) { }
+    try { loadDashboard(); } catch (e) { } // Ensure dashboard refreshes
 }
 
 //delete w/ confirmation

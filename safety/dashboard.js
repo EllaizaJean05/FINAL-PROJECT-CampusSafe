@@ -13,19 +13,29 @@ function loadDashboard() {
     }
 
     const reports = JSON.parse(localStorage.getItem("reports_" + user) || "[]");
+    
+    // FIX: Filter out reports marked as 'Completed' for dashboard stats/map
+    const activeReports = reports.filter(r => r.status !== "Completed");
+    
     updateSafetyAlert('none', 'All systems normal.');  // 1. Safety Alert
 
     fetchWeatherSnapshot(); // 2. Mini Weather
 
-    const list = document.getElementById("recentReports"); // 3. Recent Reports
-    list.innerHTML = reports.slice(-5).reverse()
+    // 3. Recent Reports (Show only the last 5 active reports)
+    const list = document.getElementById("recentReports"); 
+    list.innerHTML = activeReports.slice(-5).reverse()
         .map(r => `<li>${r.type} – ${r.desc} (${r.date})</li>`).join("");
 
     const typeCount = {}; // 4. Charts
     const reportDates = {};
-    reports.forEach(r => {
+    
+    // Count stats based ONLY on active reports
+    activeReports.forEach(r => {
         typeCount[r.type] = (typeCount[r.type] || 0) + 1;
-        reportDates[r.date] = (reportDates[r.date] || 0) + 1;
+        
+        // Use only the date part for timeline grouping
+        const reportDateKey = r.date.split(',')[0].trim();
+        reportDates[reportDateKey] = (reportDates[reportDateKey] || 0) + 1;
     });
 
     // Reports by Type Chart (Doughnut)
@@ -37,29 +47,30 @@ function loadDashboard() {
             labels: Object.keys(typeCount),
             datasets: [{
                 data: Object.values(typeCount),
+                // Colors should match your design, applied to active types
                 backgroundColor: ['#00796B', '#004D40', '#FF9800', '#F44336', '#666666'],
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'right' }, title: { display: true, text: 'Reports by Type' } }
+            plugins: { legend: { position: 'right' }, title: { display: true, text: 'Active Reports by Type' } }
         }
     });
 
-    // Timeline Chart (Bar)
-    const timelineLabels = Object.keys(reportDates).slice(-10);
+    // Timeline Chart (Bar) - Sort dates and take the last 10
+    const timelineLabels = Object.keys(reportDates).sort((a, b) => new Date(a) - new Date(b)).slice(-10);
     const timelineData = timelineLabels.map(d => reportDates[d]);
     const ctx2 = document.getElementById("timelineChart");
     timelineChart?.destroy();
     timelineChart = new Chart(ctx2, {
         type: "bar",
-        data: { labels: timelineLabels, datasets: [{ label: "Reports Filed", data: timelineData, backgroundColor: '#00796B' }] },
+        data: { labels: timelineLabels, datasets: [{ label: "Active Reports Filed", data: timelineData, backgroundColor: '#00796B' }] },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             scales: { y: { beginAtZero: true, title: { display: true, text: 'Number of Reports' } }, x: { title: { display: true, text: 'Date' } } },
-            plugins: { title: { display: true, text: 'Reports Timeline (Last 10 Days)' } }
+            plugins: { title: { display: true, text: 'Active Reports Timeline (Last 10 Days)' } }
         }
     });
 
@@ -91,9 +102,9 @@ function loadDashboardMap() {
         L.marker([spot.lat, spot.lng]).addTo(markersLayer).bindPopup(popup);
     }
     
-    // Load Dynamic User Reports ONLY (from localStorage)
+    // Load Dynamic User Reports ONLY (Filter: Show Active Reports on Map)
     reports.forEach(r => {
-        if (r.lat && r.lng) {
+        if (r.lat && r.lng && r.status !== "Completed") { // CHECK STATUS HERE
             createMarker({ 
                 name: r.type, 
                 desc: r.desc, 
@@ -104,21 +115,7 @@ function loadDashboardMap() {
         }
     });
     
-}
-    
-    // Load Dynamic User Reports ONLY (from localStorage)
-    reports.forEach(r => {
-        if (r.lat && r.lng) {
-            createMarker({ 
-                name: r.type, 
-                desc: r.desc, 
-                type: `User Report - ${r.date}`, // Shows date/time info
-                lat: r.lat, 
-                lng: r.lng 
-            });
-        }
-    });
-    
+    // Map click functionality for adding reports 
     map.on('click', function (e) {
         const type = prompt("Enter report type:");
         const desc = prompt("Enter report description:");
@@ -126,7 +123,8 @@ function loadDashboardMap() {
 
         const newReport = {
             type, desc,
-            date: new Date().toLocaleDateString(),
+            // Changed to toLocaleString for consistency with reports.js
+            date: new Date().toLocaleString(), 
             lat: e.latlng.lat,
             lng: e.latlng.lng
         };
@@ -135,8 +133,8 @@ function loadDashboardMap() {
         createMarker(newReport);
         loadDashboard(); // refresh entire dashboard after report
     });
-
-
+}
+    
 // --- Safety Alert Implementation ---
 function updateSafetyAlert(alertStatus, message) {
     const alertElement = document.getElementById('safetyAlert');
