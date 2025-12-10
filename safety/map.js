@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function createMarker(spot){
       const popupContent = `
         <div style="text-align:center;">
-          <img src="${spot.image||'images/default.jpg'}" style="width:100px; border-radius:6px; margin-bottom:5px;">
+          
           <h3>${spot.name}</h3>
           <p>${spot.desc}</p>
           <p><b>Category:</b> ${spot.type}</p>
