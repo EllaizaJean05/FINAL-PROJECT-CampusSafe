@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
+/* --- Global Reset and Variables --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -47,7 +48,7 @@ button {
     white-space: nowrap;
 }
 
-/* topbar/nav */
+/* --- Topbar/Navigation --- */
 #topbar {
     width: 100%;
     background: var(--color-secondary);
@@ -97,6 +98,7 @@ button {
     border-color: var(--color-danger);
 }
 
+/* Hidden on desktop, shown on mobile via media query */
 .menu-toggle {
     display: none;
     background: none;
@@ -106,7 +108,7 @@ button {
     cursor: pointer;
 }
 
-/* main content */
+/* --- Main Content Layouts --- */
 .container {
     padding: 25px;
     max-width: 1200px;
@@ -130,7 +132,7 @@ button {
     margin-bottom: 20px;
 }
 
-/* auth */
+/* Auth (Login/Register) Card */
 .card.auth {
     max-width: 400px;
     padding: 30px;
@@ -149,7 +151,7 @@ button {
     margin-bottom: 25px;
 }
 
-/* container for input and password toggle icon */
+/* Input Styles */
 .password-container {
     position: relative;
     margin-bottom: 15px;
@@ -173,7 +175,7 @@ button {
 .password-toggle:hover {
     color: var(--color-primary);
 }
-/* login/regisger */
+
 .card.auth button {
     width: 100%;
     padding: 14px;
@@ -194,7 +196,7 @@ button {
     color: var(--color-subtext);
 }
 
-/* dshboard */
+/* Dashboard Grids */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -202,7 +204,6 @@ button {
     margin-bottom: 20px;
 }
 
-/* Chart Row */
 .chart-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -224,7 +225,7 @@ button {
     padding: 15px;
 }
 
-/* safety allert */
+/* Safety Alerts */
 .box.alert-low,
 .box.alert-medium,
 .box.alert-high {
@@ -267,6 +268,7 @@ button {
     }
 }
 
+/* Weather */
 .weather-content {
     display: flex;
     align-items: center;
@@ -295,7 +297,7 @@ button {
     margin: 0;
 }
 
-/* input  */
+/* Input and Form Elements */
 input[type="text"],
 input[type="password"],
 textarea,
@@ -344,7 +346,8 @@ select:focus {
 #searchWeatherBtn:hover {
     background-color: #008D79;
 }
-/* report table */
+
+/* Report Table */
 .table {
     width: 100%;
     border-collapse: separate;
@@ -424,6 +427,7 @@ select:focus {
     font-weight: 700;
 }
 
+/* Map and Input Sizing */
 #map,
 #dashboardMap {
     height: 500px;
@@ -434,7 +438,6 @@ select:focus {
 
 #cityInput {
     flex-grow: 5;
-    
 }
 
 #searchWeatherBtn {
@@ -455,140 +458,6 @@ select:focus {
     width: auto;
 }
 
-@media (max-width: 768px) {
-/* navigation */
-    .controls {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        background-color: var(--color-secondary);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        padding: 10px 0;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-    }
-
-    .controls.open {
-        display: flex;
-    }
-
-    .controls button {
-        width: 90%;
-        margin: 5px auto;
-        text-align: center;
-        background: none;
-        border: 1px solid #FFFFFF55;
-    }
-
-    .controls button:hover {
-        background-color: var(--color-primary);
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    body {
-        padding-top: 55px;
-    }
-
-    .row {
-        flex-direction: column;
-    }
-
-    .row input,
-    .row button {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .row #reportType,
-    .row #reportDesc,
-    #cityInput {
-        flex-grow: 1;
-        width: 100%;
-    }
-
-    .chart-card {
-        height: 300px;
-    }
-
-    .table th:nth-child(2),
-    .table td:nth-child(2) {
-        display: none;
-    }
-
-    /* Force table to not be like a table anymore */
-    .table,
-    .table thead,
-    .table tbody,
-    .table th,
-    .table td,
-    .table tr {
-        display: block;
-    }
-
-    /* hide table headers (but not display: none;, for accessibility) */
-    .table thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-
-    .table tr {
-        border: 1px solid var(--color-border);
-        margin-bottom: 10px;
-    }
-
-    .table td {
-        /* Behave  like a "row" */
-        border: none;
-        border-bottom: 1px solid var(--color-border);
-        position: relative;
-        padding-left: 50%;
-        text-align: right;
-        min-height: 45px;
-    }
-
-    .table td::before {
-        /* Now like a table header */
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 15px;
-        width: 45%;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: 700;
-        color: var(--color-subtext);
-    }
-
-    /* Label the data */
-    .table td:nth-of-type(1)::before {
-        content: "Type:";
-    }
-
-    .table td:nth-of-type(3)::before {
-        content: "Date:";
-    }
-
-    .table td:nth-of-type(4)::before {
-        content: "Status:";
-    }
-
-    .table td:nth-of-type(5)::before {
-        content: "Actions:";
-    }
-
-    .table td:last-child {
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-}
 /* Enhanced Team Section */
 .team-grid {
     display: grid;
@@ -637,4 +506,147 @@ select:focus {
     font-size: 0.8rem;
     margin-top: 4px;
     opacity: 0.7;
+}
+
+/* --- Mobile Responsiveness (MAX-WIDTH: 768px) --- */
+@media (max-width: 768px) {
+/* Navigation: The fix relies on these styles and the JavaScript toggle */
+    #topbar {
+        padding: 10px 15px; /* Smaller padding on mobile */
+    }
+
+    .controls {
+        display: none; /* Hides the menu by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: var(--color-secondary);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .controls.open {
+        display: flex; /* SHOWN when JS adds the 'open' class */
+    }
+
+    .controls button {
+        width: 90%;
+        margin: 5px auto;
+        text-align: center;
+        background: none;
+        border: 1px solid #FFFFFF55;
+    }
+
+    .controls button:hover {
+        background-color: var(--color-primary);
+    }
+
+    .menu-toggle {
+        display: block; /* Hamburger icon is visible on mobile */
+    }
+
+    body {
+        padding-top: 55px; /* Adjust body padding for fixed header */
+    }
+
+/* Forms: Stack inputs vertically */
+    .row {
+        flex-direction: column;
+    }
+
+    .row input,
+    .row button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .row #reportType,
+    .row #reportDesc,
+    #cityInput {
+        flex-grow: 1;
+        width: 100%;
+    }
+
+/* Charts and Cards */
+    .chart-card {
+        height: 300px;
+    }
+
+/* Tables: Collapse into Card/Stack view */
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        display: none; /* Hiding the second column (usually Description/Details) */
+    }
+
+    /* Force table to not be like a table anymore (The "Card" view) */
+    .table,
+    .table thead,
+    .table tbody,
+    .table th,
+    .table td,
+    .table tr {
+        display: block;
+    }
+
+    /* hide table headers (for screen readers) */
+    .table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table tr {
+        border: 1px solid var(--color-border);
+        margin-bottom: 10px;
+    }
+
+    .table td {
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid var(--color-border);
+        position: relative;
+        padding-left: 50%; /* Make room for the pseudo-element label */
+        text-align: right;
+        min-height: 45px;
+    }
+
+    .table td::before {
+        /* Now like a table header (The label) */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 15px;
+        width: 45%;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 700;
+        color: var(--color-subtext);
+    }
+
+    /* Label the data using pseudo-elements */
+    .table td:nth-of-type(1)::before {
+        content: "Type:";
+    }
+
+    .table td:nth-of-type(3)::before {
+        content: "Date:";
+    }
+
+    .table td:nth-of-type(4)::before {
+        content: "Status:";
+    }
+
+    .table td:nth-of-type(5)::before {
+        content: "Actions:";
+    }
+
+    .table td:last-child {
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }

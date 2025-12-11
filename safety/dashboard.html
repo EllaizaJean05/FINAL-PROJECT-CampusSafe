@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusSafe - Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <header id="topbar">
         <div class="brand">CampusSafe</div>
-        <div class="controls">
+        
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        
+        <div class="controls" id="navControls">
             <button onclick="window.location.href='dashboard.html'">Dashboard</button>
             <button onclick="window.location.href='weather.html'">Weather</button>
             <button onclick="window.location.href='map.html'">Map</button>
@@ -49,16 +52,17 @@
 
             <div class="card" style="margin-top: 20px;">
                 <h4>Reports Map View</h4>
-                <div id="dashboardMap"></div> 
-            </div> 
+                <div id="dashboardMap"></div>
+            </div>
             <div class="card small">
                 <h4>Recent Reports (Active)</h4>
                 <ul id="recentReports"></ul>
             </div>
         </div>
-    </main> 
+    </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="dashboard.js"></script>
     <script src="main.js"></script>
-</body> 
+</body>
+
 </html>

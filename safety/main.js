@@ -1,40 +1,40 @@
-function toggleMenu() {
-    const controls = document.getElementById('nav-controls');
-    if (controls) {
-        controls.classList.toggle('open');
+// --- main.js content ---
+
+// Function to handle responsive menu toggle
+function initializeMenuToggle() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navControls = document.getElementById('navControls');
+
+    if (menuToggle && navControls) {
+        // Toggle the 'open' class when the hamburger button is clicked
+        menuToggle.addEventListener('click', function() {
+            navControls.classList.toggle('open');
+        });
+
+        // Close the menu if a navigation button is clicked on mobile
+        const navButtons = navControls.querySelectorAll('button');
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // We check window.innerWidth to ensure this only happens on mobile screens
+                if (window.innerWidth <= 768) {
+                    navControls.classList.remove('open');
+                }
+            });
+        });
     }
 }
 
-//Core App Functions (Retained)
-
-function showSection(id) {
-    document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
-    document.getElementById(id)?.classList.remove("hidden");
-}
+// Global function placeholder for logout (to prevent errors in HTML)
 function logout() {
-    localStorage.removeItem("activeUser");
-    window.location.href = "index.html";
+    console.log("User logged out. Insert actual logout logic here.");
+    
+    // Close menu after action (optional)
+    const navControls = document.getElementById('navControls');
+    if (navControls && window.innerWidth <= 768) {
+        navControls.classList.remove('open');
+    }
 }
 
-//Consolidated Event Listener 
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Dashboard initialization functions
-    if (typeof initMap === 'function') {
-        initMap(); 
-    }
-    if (typeof initCharts === 'function') {
-        initCharts(); 
-    }
-    if (typeof populateRecentReports === 'function') {
-        populateRecentReports(); 
-    }
-    
-    // Safety Alert Initialization (using 'none' as default for safety)
-    if (typeof updateSafetyAlert === 'function') {
-        updateSafetyAlert('none', 'All systems normal.'); 
-    }
-    if (typeof fetchWeatherSnapshot === 'function') {
-        fetchWeatherSnapshot(); 
-    }
-});
+// Wait for the entire page to load before running the script
+document.addEventListener('DOMContentLoaded', initializeMenuToggle);
