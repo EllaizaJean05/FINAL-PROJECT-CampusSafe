@@ -9,7 +9,8 @@
 <body>
 <header id="topbar">
   <div class="brand">CampusSafe</div>
-  <div class="controls">
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <div class="controls" id="navControls">
     <button onclick="window.location.href='dashboard.html'">Dashboard</button>
     <button onclick="window.location.href='weather.html'">Weather</button>
     <button onclick="window.location.href='map.html'">Map</button>
@@ -32,13 +33,10 @@
 </main>
 
 <script>
+// NOTE: I recommend moving the weather functions into a dedicated weather.js file
+// and using the logout function provided in main.js for consistency.
 function getUserReportsKey() {
   return "reports_" + localStorage.getItem("activeUser");
-}
-
-function logout() {
-  localStorage.removeItem("activeUser");
-  window.location.href = "index.html";
 }
 
 document.getElementById("searchWeatherBtn").addEventListener("click", () => {
@@ -57,5 +55,6 @@ document.getElementById("searchWeatherBtn").addEventListener("click", () => {
     });
 });
 </script>
+<script src="main.js"></script>
 </body>
 </html>

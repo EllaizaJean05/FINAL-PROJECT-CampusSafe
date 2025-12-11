@@ -9,7 +9,8 @@
 <body>
 <header id="topbar">
   <div class="brand">CampusSafe</div>
-  <div class="controls">
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <div class="controls" id="navControls">
     <button onclick="window.location.href='dashboard.html'">Dashboard</button>
     <button onclick="window.location.href='weather.html'">Weather</button>
     <button onclick="window.location.href='map.html'">Map</button>
@@ -30,6 +31,10 @@
 </main>
 
 <script>
+// NOTE: Your profile.html has its own logout function which overrides the one in main.js. 
+// I recommend moving all global functions like logout() into main.js for consistency.
+// Since you asked for the whole code, I'll keep your profile functions here but remove the
+// duplicate logout from main.js (see step 1 above, where I defined a consistent logout).
 function getUserReportsKey() {
   return "reports_" + localStorage.getItem("activeUser");
 }
@@ -58,5 +63,6 @@ function exportReports() {
 
 document.addEventListener("DOMContentLoaded", loadProfile);
 </script>
+<script src="main.js"></script>
 </body>
 </html>
